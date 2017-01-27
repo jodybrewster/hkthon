@@ -48,9 +48,12 @@ Module.register("aiclient",{
 		switch(this.current_selection) {
 			case "BEACON":
 				var guestName = document.createElement("p");
-				guestName.innerHTML = "Miguel Guitierrez";
+				//guestName.innerHTML = "Miguel Guitierrez";
+				guestName.innerHTML = this.distance;
 				guestName.className = "medium bright";
 				wrapper.appendChild(guestName);
+
+				
 
 				var img = document.createElement("avatar_img");
 				img.innerHTML = "<img src=\"modules/aiclient/IMG_3962.JPG\" style=\"border:1px solid black;max-width:200px;\">"
@@ -193,9 +196,10 @@ Module.register("aiclient",{
 			this.updateDom(this.config.animationSpeed);
 		} else if (notification == "BEACON") {
 			this.folioNumber = payload.folioNumber
+			this.distance = payload.distance
 			this.current_selection = "BEACON"
 			this.updateDom(this.config.animationSpeed);
-			this.speak("Hey miguel! Over here! You're looking super sharp in yesterday's excursion.");
+			//this.speak("Hey miguel! Over here! You're looking super sharp in yesterday's excursion.");
 		} else if (notification == "WEATHER") {
 			this.current_selection = "WEATHER"
 			this.weather = payload

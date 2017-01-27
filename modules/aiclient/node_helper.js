@@ -19,8 +19,9 @@ module.exports = NodeHelper.create({
 	    });
 
 		this.expressApp.get('/beacon', function (req, res) {
-	        //text = req.query.folio
-	        self.sendSocketNotification("BEACON", {"folio":"8590"})
+	        folio = req.query.folio
+			distance = req.query.distance
+	        self.sendSocketNotification("BEACON", {"folio": folio, "distance": distance})
 	        res.sendStatus(200);
 	    });
 
