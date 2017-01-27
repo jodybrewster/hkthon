@@ -47,13 +47,21 @@ Module.register("aiclient",{
 		var wrapper = document.createElement("div");
 		var ports = ["Cozumel","Galveston"];
 		switch(this.current_selection) {
+			case "SELECT":
+				var h1 = document.createElement("h1");
+				h1.innerHTML = "You got it. Please check your hub app.";
+				wrapper.appendChild(h1);
+			break
 			case "CHOOSEPORT":
 				var h1 = document.createElement("h1");
-				h1.innerHTML = "Excursions for Miami";
+				h1.innerHTML = "Excursions for Cozumel";
 				wrapper.appendChild(h1);
 				var img = document.createElement("avatar_img");
 				img.innerHTML = "<img src=\"modules/aiclient/Pictures/"+this.id+".jpg\" style=\"border:1px solid black;max-width:200px;\">"
 				wrapper.appendChild(img);
+				var p = document.createElement("p");
+				p.innerHTML = "Navigate saying next or previous. If you like one please let us know.";
+				wrapper.appendChild(p);
 			break;
 			case "MENU":
 			    var options = [
@@ -71,7 +79,7 @@ Module.register("aiclient",{
 					ul.appendChild(option);
 				}
 				wrapper.appendChild(ul);
-				break;
+			break;
 			case "SHOREX":
 				
 				var i=0;
@@ -100,14 +108,14 @@ Module.register("aiclient",{
 				var img = document.createElement("avatar_img");
 				img.innerHTML = "<img src=\"modules/aiclient/IMG_3962.JPG\" style=\"border:1px solid black;max-width:200px;\">"
 				wrapper.appendChild(img)
-				break;
+			break;
 			case "STATEMENT":
 				wrapper.innerHTML = this.text;
 				wrapper.className = "medium bright";
-				break
+			break
 			case "IMAGE":
 				wrapper.innerHTML = "<img src=\"" + this.imageURL + "\" style=\"border:1px solid black;max-width:100%;\">"
-				break
+			break
 			case "WEATHER":
 				var small = document.createElement("div");
 				small.className = "normal medium";
@@ -157,10 +165,10 @@ Module.register("aiclient",{
 
 				wrapper.appendChild(small);
 				wrapper.appendChild(large);
-				break;
+			break;
 			case "FACE":
 				wrapper.innerHTML = "<img src=\"" + this.file("face.gif") + "\" style=\"border:1px solid black;max-width:100%;\">"
-				break
+			break
 			case "HOLIDAYS":
 				var title = document.createElement('div')
 				title.innerHTML = this.holiday.localName
@@ -176,7 +184,7 @@ Module.register("aiclient",{
 
 				wrapper.appendChild(title)
 				wrapper.appendChild(subtitle)
-				break
+			break
 			case "NEWS":
 				var title = document.createElement('div')
 				title.innerHTML = "News"
@@ -210,9 +218,9 @@ Module.register("aiclient",{
 				}
 
 				wrapper.appendChild(table)
-				break
+			break
 			default:
-				break
+			break
 		}
 		return wrapper
 	},
@@ -245,26 +253,25 @@ Module.register("aiclient",{
 				this.speak("If you want to book future excursions say... show me future excursions.");
 			}
 			this.updateDom(this.config.animationSpeed);
-
-			
 		} 
 		 else if (notification == "MENU") {
-			this.folioNumber = payload.folioNumber
-			this.distance = payload.distance
 			this.current_selection = "MENU"
 			this.updateDom(this.config.animationSpeed);
 			//this.speak("Try some of this commands.");
 		}
+		else if (notification == "SELECT") {
+			this.current_selection = "SELECT"
+			this.id = payload.id;
+			this.updateDom(this.config.animationSpeed);
+			//this.speak("Try some of this commands.");
+		}
 		else if (notification == "CHOOSEPORT") {
-			this.folioNumber = payload.folioNumber
-			this.distance = payload.distance
 			this.current_selection = "CHOOSEPORT"
+			this.id = payload.id;
 			this.updateDom(this.config.animationSpeed);
 			//this.speak("Try some of this commands.");
 		}
 		else if (notification == "SHOREX") {
-			this.folioNumber = payload.folioNumber
-			this.distance = payload.distance
 			this.current_selection = "SHOREX"
 			this.updateDom(this.config.animationSpeed);
 			//this.speak("Try some of this commands.");
