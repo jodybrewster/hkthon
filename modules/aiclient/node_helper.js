@@ -24,6 +24,12 @@ module.exports = NodeHelper.create({
 	        res.sendStatus(200);
 	    });
 
+		this.expressApp.get('/chooseport', function (req, res) {
+	        var id = req.query.id;
+	        self.sendSocketNotification("CHOOSEPORT", {id: id});
+	        res.sendStatus(200);
+	    });
+
 		this.expressApp.get('/shorex', function (req, res) {
 	        text = req.query.text;
 	        self.sendSocketNotification("SHOREX", {port:undefined})
