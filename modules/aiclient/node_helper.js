@@ -18,6 +18,12 @@ module.exports = NodeHelper.create({
 	        res.sendStatus(200);
 	    });
 
+		this.expressApp.get('/menu', function (req, res) {
+	        text = req.query.text
+	        self.sendSocketNotification("MENU", {})
+	        res.sendStatus(200);
+	    });
+
 		this.expressApp.get('/beacon', function (req, res) {
 	        folio = req.query.folio
 			distance = req.query.distance

@@ -46,6 +46,23 @@ Module.register("aiclient",{
 	getDom: function() {
 		var wrapper = document.createElement("div");
 		switch(this.current_selection) {
+			case "MENU":
+			    var options = [
+					"What's the ship time?",
+					"What's the weather?",
+					"Show me upcoming excursions",
+					"Show me my photos",
+				];
+				var i=0;
+				var ul = document.createElement("ul");
+				for(;i<options.length;i++)
+				{
+					var option = document.createElement("li");
+					option.innerHTML = options[i];
+					ul.appendChild(option);
+				}
+				wrapper.appendChild(ul);
+				break;
 			case "BEACON":
 				var guestName = document.createElement("p");
 				//guestName.innerHTML = "Miguel Guitierrez";
@@ -200,7 +217,15 @@ Module.register("aiclient",{
 			this.current_selection = "BEACON"
 			this.updateDom(this.config.animationSpeed);
 			//this.speak("Hey miguel! Over here! You're looking super sharp in yesterday's excursion.");
-		} else if (notification == "WEATHER") {
+		} 
+		 else if (notification == "MENU") {
+			this.folioNumber = payload.folioNumber
+			this.distance = payload.distance
+			this.current_selection = "MENU"
+			this.updateDom(this.config.animationSpeed);
+			//this.speak("Try some of this commands.");
+		}
+		else if (notification == "WEATHER") {
 			this.current_selection = "WEATHER"
 			this.weather = payload
 			this.updateDom(this.config.animationSpeed);
