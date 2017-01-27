@@ -94,7 +94,7 @@ Module.register("aiclient",{
 			break;
 			case "BEACON":
 				var guestName = document.createElement("p");
-				guestName.innerHTML = this.distance;
+				guestName.innerHTML = "Miguel Guitierrez";
 				guestName.className = "medium bright";
 				wrapper.appendChild(guestName);
 				var img = document.createElement("avatar_img");
@@ -233,11 +233,20 @@ Module.register("aiclient",{
 			this.current_selection = "IMAGE"
 			this.updateDom(this.config.animationSpeed);
 		} else if (notification == "BEACON") {
-			this.folioNumber = payload.folioNumber
+			//this.folioNumber = payload.folioNumber
 			this.distance = payload.distance
 			this.current_selection = "BEACON"
+			this.showBeaconCommand = false;
+			if (this.distance == "mid") {
+				this.speak("Hey miguel! Over here! You're looking super sharp in yesterday's excursion.");
+			}
+			if (this.distance == "short") {
+				this.showBeaconCommand = true;
+				this.speak("If you want to book future excursions say... show me future excursions.");
+			}
 			this.updateDom(this.config.animationSpeed);
-			//this.speak("Hey miguel! Over here! You're looking super sharp in yesterday's excursion.");
+
+			
 		} 
 		 else if (notification == "MENU") {
 			this.folioNumber = payload.folioNumber
