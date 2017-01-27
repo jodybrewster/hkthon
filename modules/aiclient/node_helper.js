@@ -32,7 +32,7 @@ module.exports = NodeHelper.create({
 
 		this.expressApp.get('/shorex', function (req, res) {
 	        text = req.query.text;
-	        self.sendSocketNotification("SHOREX", {port:undefined})
+	        self.sendSocketNotification("SHOREX", {})
 	        res.sendStatus(200);
 	    });
 
