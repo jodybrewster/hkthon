@@ -34,7 +34,6 @@ module.exports = NodeHelper.create({
 	        //folio = req.query.folio
 			distance = req.query.distance
 
-			console.log(distance);
 	        self.sendSocketNotification("BEACON", {"distance": distance});
 	        res.sendStatus(200);
 	    });

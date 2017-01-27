@@ -91,7 +91,7 @@ Module.register("aiclient",{
 			break;
 			case "BEACON":
 				var guestName = document.createElement("p");
-				guestName.innerHTML = this.distance;
+				guestName.innerHTML = "Miguel Guitierrez";
 				guestName.className = "medium bright";
 				wrapper.appendChild(guestName);
 				var img = document.createElement("avatar_img");
