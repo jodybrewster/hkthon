@@ -195,11 +195,20 @@ Module.register("aiclient",{
 			this.current_selection = "IMAGE"
 			this.updateDom(this.config.animationSpeed);
 		} else if (notification == "BEACON") {
-			this.folioNumber = payload.folioNumber
+			//this.folioNumber = payload.folioNumber
 			this.distance = payload.distance
 			this.current_selection = "BEACON"
+			this.showBeaconCommand = false;
+			if (this.distance == "mid") {
+				this.speak("Hey miguel! Over here! You're looking super sharp in yesterday's excursion.");
+			}
+			if (this.distance == "short") {
+				this.showBeaconCommand = true;
+				this.speak("If you want to book future excursions say... show me future excursions.");
+			}
 			this.updateDom(this.config.animationSpeed);
-			//this.speak("Hey miguel! Over here! You're looking super sharp in yesterday's excursion.");
+
+			
 		} else if (notification == "WEATHER") {
 			this.current_selection = "WEATHER"
 			this.weather = payload
