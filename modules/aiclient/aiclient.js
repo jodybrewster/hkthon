@@ -45,7 +45,16 @@ Module.register("aiclient",{
 	// Override dom generator.
 	getDom: function() {
 		var wrapper = document.createElement("div");
+		var ports = ["Cozumel","Galveston"];
 		switch(this.current_selection) {
+			case "CHOOSEPORT":
+				var h1 = document.createElement("h1");
+				h1.innerHTML = "Excursions for Miami";
+				wrapper.appendChild(h1);
+				var img = document.createElement("avatar_img");
+				img.innerHTML = "<img src=\"modules/aiclient/Pictures/"+this.id+".jpg\" style=\"border:1px solid black;max-width:200px;\">"
+				wrapper.appendChild(img);
+			break;
 			case "MENU":
 			    var options = [
 					"What's the ship time?",
@@ -64,28 +73,22 @@ Module.register("aiclient",{
 				wrapper.appendChild(ul);
 				break;
 			case "SHOREX":
-				 var options = [
-					"Miami",
-					"Aruba",
-					"Cozumel",
-					"Honk Kong",
-				];
+				
 				var i=0;
 				var h1 = document.createElement("h1");
 				h1.innerHTML = "Select a port";
 				wrapper.appendChild(h1);
 				var ol = document.createElement("ol");
-				
-				for(;i<options.length;i++)
+				for(;i<ports.length;i++)
 				{
 					var option = document.createElement("li");
-					option.innerHTML = options[i];
+					option.innerHTML = ports[i];
 					ol.appendChild(option);
 				}
 				wrapper.appendChild(ol);
 
 				var p = document.createElement("p");
-				p.innerHTML = "Try choose port Miami or choose number one.";
+				p.innerHTML = "Try choose port Cozumel or choose number one.";
 				wrapper.appendChild(p);
 
 			break;
@@ -232,9 +235,6 @@ Module.register("aiclient",{
 	socketNotificationReceived: function(notification, payload) {
 		console.log("module received: " + notification)
 		var self = this
-
-
-		
 		if (notification == "STATEMENT"){
 			this.current_selection = "STATEMENT"
 			this.text = payload.text
@@ -263,6 +263,13 @@ Module.register("aiclient",{
 			this.folioNumber = payload.folioNumber
 			this.distance = payload.distance
 			this.current_selection = "MENU"
+			this.updateDom(this.config.animationSpeed);
+			//this.speak("Try some of this commands.");
+		}
+		else if (notification == "CHOOSEPORT") {
+			this.folioNumber = payload.folioNumber
+			this.distance = payload.distance
+			this.current_selection = "CHOOSEPORT"
 			this.updateDom(this.config.animationSpeed);
 			//this.speak("Try some of this commands.");
 		}
