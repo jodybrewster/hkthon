@@ -63,19 +63,40 @@ Module.register("aiclient",{
 				}
 				wrapper.appendChild(ul);
 				break;
+			case "SHOREX":
+				 var options = [
+					"Miami",
+					"Aruba",
+					"Cozumel",
+					"Honk Kong",
+				];
+				var i=0;
+				var h1 = document.createElement("h1");
+				h1.innerHTML = "Select a port";
+				wrapper.appendChild(h1);
+				var ol = document.createElement("ol");
+				
+				for(;i<options.length;i++)
+				{
+					var option = document.createElement("li");
+					option.innerHTML = options[i];
+					ol.appendChild(option);
+				}
+				wrapper.appendChild(ol);
+
+				var p = document.createElement("p");
+				p.innerHTML = "Try choose port Miami or choose number one.";
+				wrapper.appendChild(p);
+
+			break;
 			case "BEACON":
 				var guestName = document.createElement("p");
-				//guestName.innerHTML = "Miguel Guitierrez";
 				guestName.innerHTML = this.distance;
 				guestName.className = "medium bright";
 				wrapper.appendChild(guestName);
-
-				
-
 				var img = document.createElement("avatar_img");
 				img.innerHTML = "<img src=\"modules/aiclient/IMG_3962.JPG\" style=\"border:1px solid black;max-width:200px;\">"
 				wrapper.appendChild(img)
-
 				break;
 			case "STATEMENT":
 				wrapper.innerHTML = this.text;
@@ -222,6 +243,13 @@ Module.register("aiclient",{
 			this.folioNumber = payload.folioNumber
 			this.distance = payload.distance
 			this.current_selection = "MENU"
+			this.updateDom(this.config.animationSpeed);
+			//this.speak("Try some of this commands.");
+		}
+		else if (notification == "SHOREX") {
+			this.folioNumber = payload.folioNumber
+			this.distance = payload.distance
+			this.current_selection = "SHOREX"
 			this.updateDom(this.config.animationSpeed);
 			//this.speak("Try some of this commands.");
 		}
