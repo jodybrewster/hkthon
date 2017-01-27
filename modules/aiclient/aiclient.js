@@ -46,19 +46,57 @@ Module.register("aiclient",{
 	getDom: function() {
 		var wrapper = document.createElement("div");
 		switch(this.current_selection) {
+			case "MENU":
+			    var options = [
+					"What's the ship time?",
+					"What's the weather?",
+					"Show me upcoming excursions",
+					"Show me my photos",
+				];
+				var i=0;
+				var ul = document.createElement("ul");
+				for(;i<options.length;i++)
+				{
+					var option = document.createElement("li");
+					option.innerHTML = options[i];
+					ul.appendChild(option);
+				}
+				wrapper.appendChild(ul);
+				break;
+			case "SHOREX":
+				 var options = [
+					"Miami",
+					"Aruba",
+					"Cozumel",
+					"Honk Kong",
+				];
+				var i=0;
+				var h1 = document.createElement("h1");
+				h1.innerHTML = "Select a port";
+				wrapper.appendChild(h1);
+				var ol = document.createElement("ol");
+				
+				for(;i<options.length;i++)
+				{
+					var option = document.createElement("li");
+					option.innerHTML = options[i];
+					ol.appendChild(option);
+				}
+				wrapper.appendChild(ol);
+
+				var p = document.createElement("p");
+				p.innerHTML = "Try choose port Miami or choose number one.";
+				wrapper.appendChild(p);
+
+			break;
 			case "BEACON":
 				var guestName = document.createElement("p");
-				//guestName.innerHTML = "Miguel Guitierrez";
 				guestName.innerHTML = this.distance;
 				guestName.className = "medium bright";
 				wrapper.appendChild(guestName);
-
-				
-
 				var img = document.createElement("avatar_img");
 				img.innerHTML = "<img src=\"modules/aiclient/IMG_3962.JPG\" style=\"border:1px solid black;max-width:200px;\">"
 				wrapper.appendChild(img)
-
 				break;
 			case "STATEMENT":
 				wrapper.innerHTML = this.text;
@@ -209,7 +247,22 @@ Module.register("aiclient",{
 			this.updateDom(this.config.animationSpeed);
 
 			
-		} else if (notification == "WEATHER") {
+		} 
+		 else if (notification == "MENU") {
+			this.folioNumber = payload.folioNumber
+			this.distance = payload.distance
+			this.current_selection = "MENU"
+			this.updateDom(this.config.animationSpeed);
+			//this.speak("Try some of this commands.");
+		}
+		else if (notification == "SHOREX") {
+			this.folioNumber = payload.folioNumber
+			this.distance = payload.distance
+			this.current_selection = "SHOREX"
+			this.updateDom(this.config.animationSpeed);
+			//this.speak("Try some of this commands.");
+		}
+		else if (notification == "WEATHER") {
 			this.current_selection = "WEATHER"
 			this.weather = payload
 			this.updateDom(this.config.animationSpeed);

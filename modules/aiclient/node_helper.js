@@ -13,8 +13,20 @@ module.exports = NodeHelper.create({
 		console.log("Starting node helper for: " + this.name);
 
 	    this.expressApp.get('/statement', function (req, res) {
-	        text = req.query.text
+	        text = req.query.text;
 	        self.sendSocketNotification("STATEMENT", {"text":text})
+	        res.sendStatus(200);
+	    });
+
+		this.expressApp.get('/menu', function (req, res) {
+	        text = req.query.text;
+	        self.sendSocketNotification("MENU", {})
+	        res.sendStatus(200);
+	    });
+
+		this.expressApp.get('/shorex', function (req, res) {
+	        text = req.query.text;
+	        self.sendSocketNotification("SHOREX", {port:undefined})
 	        res.sendStatus(200);
 	    });
 
